@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- These are the options displayed in the manufacturer drop-down Spinner -->
+    <string-array name="array_producer_options">
+        <item>@string/producer_nothing</item>
+        <item>@string/producer_planszoweczka</item>
+        <item>@string/producer_marajo</item>
+        <item>@string/producer_rebel</item>
+        <item>@string/producer_granna</item>
+        <item>@string/producer_galakta</item>
+    </string-array>
+
+</resources>

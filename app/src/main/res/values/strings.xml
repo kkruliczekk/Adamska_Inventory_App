@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">Adamska Inventory App</string>
+    <string name="editor_name">Edit product</string>
+    <string name="new_product">Enter the product</string>
+    <string name="product_overview">Product overview</string>
+
+    <string name="tool_name">Product</string>
+    <string name="price">Price: </string>
+    <string name="tool_price">20</string>
+    <string name="dollar">$</string>
+    <string name="availability">Availability: </string>
+    <string name="tool_quantity">1</string>
+    <string name="sale_button">Sale</string>
+
+
+    <string name="edit_name">Product name:</string>
+    <string name="category_manufacturer">Manufacturer:</string>
+    <string name="category_availability">Availability:</string>
+    <string name="hint_price">Price</string>
+    <string name="tool_manufacturer">Manufacturer</string>
+    <string name="category_name">Product name:</string>
+    <string name="hint_name">Product</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_quantity">Quantity</string>
+    <string name="category_price">Price per unit:</string>
+    <string name="category_description">Description:</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="order">Order from manufacturer</string>
+
+    <string name="empty_view_title_text">You have no products on the list now.</string>
+
+    <string name="action_insert_new_product">Insert new product</string>
+    <string name="action_delete_all_entries">Delete all products</string>
+    <string name="action_save">Save changes</string>
+    <string name="action_edit_product">Edit this product</string>
+    <string name="action_delete_one">Delete this product</string>
+
+    <string name="producer_planszoweczka">Planszoweczka</string>
+    <string name="producer_marajo">Marajo</string>
+    <string name="producer_rebel">Rebel</string>
+    <string name="producer_granna">Granna</string>
+    <string name="producer_galakta">Galakta</string>
+    <string name="producer_nothing">Unknown manufacturer</string>
+
+    <string name="editor_insert_failed">Error with saving product</string>
+    <string name="editor_insert_successful">Data for product inserted</string>
+    <string name="editor_update_failed">Error with updating product</string>
+    <string name="editor_update_successful">Data for product updated</string>
+    <string name="editor_delete_failed">Error with deleting product</string>
+    <string name="editor_delete_successful">Product deleted</string>
+
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+
+    <string name="delete_one_dialog_msg">Delete this product?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="delete_all_dialog_msg">Delete all products?</string>
+
+    <string name="coming_soon">More information coming soon.</string>
+
+    <string name="warning_name">Introduction of product name is obligatory</string>
+    <string name="warning_price">Introduction of product price is obligatory. Make sure it is a number.</string>
+
+</resources>

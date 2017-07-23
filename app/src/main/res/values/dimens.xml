@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_item_height">88dp</dimen>
+    <dimen name="image_size">150dp</dimen>
+    <dimen name="name_size">20sp</dimen>
+    <dimen name="price_size">18sp</dimen>
+    <dimen name="quantity_size">15sp</dimen>
+    <dimen name="layout_margin">5dp</dimen>
+    <dimen name="padding">3dp</dimen>
+    <dimen name="layout_margin_external">10dp</dimen>
+
+    <!-- Common margin value used throughout the app -->
+    <dimen name="activity_margin">16dp</dimen>
+
+</resources>

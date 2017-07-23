@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/list_item_height"
+        android:layout_height="@dimen/list_item_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/Deposit"
+        android:padding="@dimen/padding"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="@dimen/layout_margin_external">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            style="@style/name"
+            tools:text="@string/tool_name"
+            android:layout_marginBottom="@dimen/layout_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/price"
+                android:text="@string/price" />
+
+            <TextView
+                style="@style/price"
+                tools:text="@string/tool_price" />
+
+            <TextView
+                style="@style/price"
+                android:text="@string/dollar" />
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/layout_margin">
+
+            <TextView
+                style="@style/quantity"
+                android:text="@string/availability" />
+
+            <TextView
+                style="@style/quantity"
+                tools:text="@string/tool_quantity" />
+        </LinearLayout>
+
+            <Button
+                android:id="@+id/button_sale"
+                style="@style/button"
+                android:text="@string/sale_button" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

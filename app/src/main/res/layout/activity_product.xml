@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_margin"
+    tools:context="com.example.android.adamska_inventory_app.ProductActivity">
+
+    <TextView
+        android:id="@+id/overview_name"
+        style="@style/title"
+        android:textSize="30sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/layout_margin_external"
+        tools:text="@string/tool_name" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/overview_image"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/image_size"
+            android:src="@drawable/Deposit"
+            android:scaleType="centerCrop"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/layout_margin_external">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/layout_margin"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    style="@style/price"
+                    android:textSize="25sp"
+                    android:text="@string/price" />
+
+                <TextView
+                    android:id="@+id/overview_price"
+                    style="@style/price"
+                    android:textSize="25sp"
+                    tools:text="@string/tool_price" />
+
+                <TextView
+                    style="@style/price"
+                    android:textSize="25sp"
+                    android:text="@string/dollar" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/quantity"
+                android:textSize="23sp"
+                android:padding="@dimen/layout_margin"
+                android:text="@string/availability"
+                android:layout_gravity="center_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/layout_margin"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/button_minus"
+                    style="@style/button"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="@string/minus"/>
+
+            <TextView
+                android:id="@+id/overview_quantity"
+                style="@style/quantity"
+                android:textSize="30sp"
+                tools:text="@string/tool_quantity"
+                android:padding="@dimen/layout_margin_external"/>
+
+                <Button
+                    android:id="@+id/button_plus"
+                    style="@style/button"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="@string/plus"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        style="@style/title"
+        android:layout_marginTop="@dimen/layout_margin_external"
+        android:text="@string/category_description"/>
+
+    <TextView
+        android:id="@+id/overview_description"
+        style="@style/description"
+        android:textSize="17sp"
+        android:padding="@dimen/layout_margin_external"
+        tools:text="@string/hint_description"/>
+
+    <TextView
+        style="@style/title"
+        android:text="@string/category_manufacturer"
+        android:layout_marginTop="@dimen/layout_margin_external"/>
+
+    <TextView
+        android:id="@+id/overview_manufacturer"
+        style="@style/description"
+        android:textSize="17sp"
+        android:padding="@dimen/layout_margin_external"
+        tools:text="@string/tool_manufacturer"/>
+
+        </LinearLayout>
+</ScrollView>
+
+    <Button
+        android:id="@+id/order_button"
+        style="@style/button"
+        android:padding="@dimen/layout_margin_external"
+        android:text="@string/order"/>
+
+</LinearLayout>
