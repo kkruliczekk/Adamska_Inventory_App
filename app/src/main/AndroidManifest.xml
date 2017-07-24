@@ -29,7 +29,7 @@
         </activity>
 
         <activity android:name=".ProductActivity"
-            android:label="@string/product_overview"
+            android:label="@string/product_overview_activity_name"
             android:parentActivityName=".CatalogActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data

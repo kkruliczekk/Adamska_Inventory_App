@@ -2,6 +2,8 @@ package com.example.android.adamska_inventory_app;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,20 +64,17 @@ public class CursorAdapter extends android.widget.CursorAdapter {
         int imageColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_IMAGE);
 
         String productName = cursor.getString(nameColumnIndex);
-        double productPrice = cursor.getInt(priceColumnIndex);
+        int productPrice = cursor.getInt(priceColumnIndex);
         int productQuantity = cursor.getInt(availabilityColumnIndex);
-        byte[] productImage = cursor.getBlob(availabilityColumnIndex);
-        //TODO wez obrazek
+        byte[] productImage = cursor.getBlob(imageColumnIndex);
 
-        // If the quantity is empty string or null, then set it as 0.
-        //if (TextUtils.isEmpty(productQuantity)) {
-           // productQuantity = context.getInt(0);
-       // }
+        //Convert the image from database to bitmap
+        Bitmap imageBitmap = BitmapFactory.decodeByteArray(productImage, 0, productImage.length);
 
         viewHolder.nameView.setText(productName);
-        viewHolder.priceView.setText(productName);
-        viewHolder.availabilityView.setText(productQuantity);
-        //TODO viewHolder.imageView.setImageBitmap(productImage);
+        viewHolder.priceView.setText(""+productPrice);
+        viewHolder.availabilityView.setText(""+productQuantity);
+        viewHolder.imageView.setImageBitmap(imageBitmap);
 
     }
 

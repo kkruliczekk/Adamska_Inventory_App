@@ -55,6 +55,7 @@
                     android:text="@string/category_image" />
 
                 <Button
+                    android:id="@+id/download_image"
                     style="@style/button"
                     android:layout_marginTop="@dimen/layout_margin_external"
                     android:text="@string/insert_image" />

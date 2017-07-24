@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Adamska Inventory App</string>
-    <string name="editor_name">Edit product</string>
-    <string name="new_product">Enter the product</string>
-    <string name="product_overview">Product overview</string>
+    <string name="editor_activity_name">Edit product</string>
+    <string name="new_product_activity_name">Enter the product</string>
+    <string name="product_overview_activity_name">Product overview</string>
 
     <string name="tool_name">Product</string>
     <string name="price">Price: </string>
@@ -63,7 +63,7 @@
     <string name="coming_soon">More information coming soon.</string>
 
     <string name="warning_name">Introduction of product name is obligatory</string>
-    <string name="warning_price">Introduction of product price is obligatory. Make sure it is a number.</string>
+    <string name="warning_price">Introduction of product price is obligatory. Make sure it is a positive number.</string>
     <string name="category_image">Image</string>
     <string name="insert_image">Download</string>
 

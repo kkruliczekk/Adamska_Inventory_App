@@ -113,16 +113,19 @@ public class InventoryProvider extends ContentProvider {
     //Insert a new product into the database. Create a new Uri for the new row
 
     private Uri insertProduct(Uri uri, ContentValues values) {
+        Log.v("Kasia", "vlues: " + values);
         //Name can not be null
         String name = values.getAsString(ContractClass.InventoryEntry.COLUMN_NAME);
         if (name == null) {
             throw new IllegalArgumentException("Name of product is required.");
         }
+
         //Producer can not be null
         Integer producer = values.getAsInteger(ContractClass.InventoryEntry.COLUMN_PRODUCER);
         if (producer == null || !ContractClass.InventoryEntry.isValidProducer(producer)) {
             throw new IllegalArgumentException("Valid manufacturer is required.");
         }
+
         //Price can not be null and can not be smaller than 0
         Integer price = values.getAsInteger(ContractClass.InventoryEntry.COLUMN_PRICE);
         if (price == null || price < 0) {
