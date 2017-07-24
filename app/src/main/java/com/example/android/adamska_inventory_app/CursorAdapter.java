@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.adamska_inventory_app.data.ContractClass;
-
-import static android.R.attr.data;
 
 /**
  * Created by kasia on 22.07.17.
@@ -72,10 +69,9 @@ public class CursorAdapter extends android.widget.CursorAdapter {
         Bitmap imageBitmap = BitmapFactory.decodeByteArray(productImage, 0, productImage.length);
 
         viewHolder.nameView.setText(productName);
-        viewHolder.priceView.setText(""+productPrice);
-        viewHolder.availabilityView.setText(""+productQuantity);
+        viewHolder.priceView.setText("" + productPrice);
+        viewHolder.availabilityView.setText("" + productQuantity);
         viewHolder.imageView.setImageBitmap(imageBitmap);
-
     }
 
     //Cache of the children views for the list item
