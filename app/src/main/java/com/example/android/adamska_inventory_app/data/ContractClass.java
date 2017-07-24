@@ -41,6 +41,7 @@ public class ContractClass {
         public static final String COLUMN_QUANTITY = "quantity";
         public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_IMAGE = "image";
 
         //possible values for manufacturer
         public static final int PRODUCER_NOTHING = 0;
@@ -53,7 +54,7 @@ public class ContractClass {
         /**
          * Returns whether or not the given producer is chosen
          */
-        public static boolean isValidGender(int producer) {
+        public static boolean isValidProducer(int producer) {
             if (producer == PRODUCER_NOTHING || producer == PRODUCER_PLANSZOWECZKA || producer == PRODUCER_MARAJO
                     || producer == PRODUCER_REBEL || producer == PRODUCER_GRANNA || producer == PRODUCER_GALAKTA) {
                 return true;

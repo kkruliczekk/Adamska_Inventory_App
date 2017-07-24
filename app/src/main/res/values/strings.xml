@@ -64,5 +64,7 @@
 
     <string name="warning_name">Introduction of product name is obligatory</string>
     <string name="warning_price">Introduction of product price is obligatory. Make sure it is a number.</string>
+    <string name="category_image">Image</string>
+    <string name="insert_image">Download</string>
 
 </resources>

@@ -31,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ContractClass.InventoryEntry.TABLE_NAME + " ("
                 + ContractClass.InventoryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + ContractClass.InventoryEntry.COLUMN_NAME + " TEXT NOT NULL, "
+                + ContractClass.InventoryEntry.COLUMN_IMAGE + " BLOB, "
                 + ContractClass.InventoryEntry.COLUMN_PRODUCER + " INTEGER NOT NULL DEFAULT 0, "
                 + ContractClass.InventoryEntry.COLUMN_PRICE + " INTEGER NOT NULL, "
                 + ContractClass.InventoryEntry.COLUMN_QUANTITY + " INTEGER NOT NULL DEFAULT 0, "

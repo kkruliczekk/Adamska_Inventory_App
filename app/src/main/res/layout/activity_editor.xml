@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-    <!-- Layout for the editor -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!-- Layout for the editor -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,138 +7,181 @@
     android:padding="@dimen/activity_margin"
     tools:context=".EditorActivity">
 
-    <!-- Product name-->
     <LinearLayout
-        android:id="@+id/container_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- Label -->
-        <TextView
-            style="@style/CategoryStyle"
-            android:text="@string/category_name" />
-
-        <!-- Name field -->
-        <EditText
-            android:id="@+id/edit_name"
-            style="@style/EditorFieldStyle"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:hint="@string/hint_name"
-            android:inputType="textCapWords" />
-
-    </LinearLayout>
-
-
-    <!-- Producer category -->
-    <LinearLayout
-        android:id="@+id/container_producer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- Label -->
-        <TextView
-            android:id="@+id/textView"
-            style="@style/CategoryStyle"
-            android:text="@string/category_manufacturer" />
-
-        <!-- Input field -->
+        <!-- Product name-->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="2"
+            android:id="@+id/container_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <!-- Producer drop-down spinner -->
-            <Spinner
-                android:id="@+id/spinner_manufacturer"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:paddingRight="16dp"
-                android:spinnerMode="dropdown" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Quantity category -->
-    <LinearLayout
-        android:id="@+id/container_quantity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- Label -->
-        <TextView
-            android:text="@string/category_availability"
-            style="@style/CategoryStyle" />
-
-        <!-- Quantity field -->
-        <EditText
-            android:id="@+id/edit_quantity"
-            style="@style/EditorFieldStyle"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:hint="@string/hint_quantity"
-            android:inputType="number" />
-
-        </LinearLayout>
-
-    <!-- Price category -->
-    <LinearLayout
-        android:id="@+id/container_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- Label -->
-        <TextView
-            android:text="@string/category_price"
-            style="@style/CategoryStyle" />
-        <!-- Input fields -->
-        <RelativeLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2">
-
-            <!-- Price field -->
-            <EditText
-                android:id="@+id/edit_price"
-                style="@style/EditorFieldStyle"
-                android:layout_width="match_parent"
-                android:hint="@string/hint_price"
-                android:inputType="number"/>
-
-            <!-- Units for price ($) -->
+            <!-- Label -->
             <TextView
-                android:id="@+id/label_dollar"
-                android:text="@string/dollar"
-                android:paddingTop="10dp"
-                style="@style/unit_price"/>
+                style="@style/CategoryStyle"
+                android:text="@string/category_name" />
 
-        </RelativeLayout>
+            <!-- Name field -->
+            <EditText
+                android:id="@+id/edit_name"
+                style="@style/EditorFieldStyle"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:hint="@string/hint_name"
+                android:inputType="textCapWords" />
+
+        </LinearLayout>
+
+        <!-- Product image-->
+        <LinearLayout
+            android:id="@+id/container_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- Label -->
+                <TextView
+                    style="@style/CategoryStyle"
+                    android:layout_width="wrap_content"
+                    android:text="@string/category_image" />
+
+                <Button
+                    style="@style/button"
+                    android:layout_marginTop="@dimen/layout_margin_external"
+                    android:text="@string/insert_image" />
+
+            </LinearLayout>
+
+            <!-- Image field -->
+            <ImageView
+                android:id="@+id/edit_image"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/image_size"
+                android:layout_weight="2" />
+
+
+        </LinearLayout>
+
+
+        <!-- Producer category -->
+        <LinearLayout
+            android:id="@+id/container_producer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                android:id="@+id/textView"
+                style="@style/CategoryStyle"
+                android:text="@string/category_manufacturer" />
+
+            <!-- Input field -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <!-- Producer drop-down spinner -->
+                <Spinner
+                    android:id="@+id/spinner_manufacturer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:paddingRight="16dp"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Quantity category -->
+        <LinearLayout
+            android:id="@+id/container_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:text="@string/category_availability" />
+
+            <!-- Quantity field -->
+            <EditText
+                android:id="@+id/edit_quantity"
+                style="@style/EditorFieldStyle"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:hint="@string/hint_quantity"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <!-- Price category -->
+        <LinearLayout
+            android:id="@+id/container_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:text="@string/category_price" />
+            <!-- Input fields -->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+                <!-- Price field -->
+                <EditText
+                    android:id="@+id/edit_price"
+                    style="@style/EditorFieldStyle"
+                    android:layout_width="match_parent"
+                    android:hint="@string/hint_price"
+                    android:inputType="number" />
+
+                <!-- Units for price ($) -->
+                <TextView
+                    android:id="@+id/label_dollar"
+                    style="@style/unit_price"
+                    android:paddingTop="10dp"
+                    android:text="@string/dollar" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!-- Description category -->
+        <LinearLayout
+            android:id="@+id/container_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:text="@string/category_description" />
+
+            <!-- Description field -->
+            <EditText
+                android:id="@+id/edit_description"
+                style="@style/EditorFieldStyle"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:hint="@string/hint_description"
+                android:inputType="textCapWords" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <!-- Description category -->
-    <LinearLayout
-        android:id="@+id/container_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- Label -->
-        <TextView
-            android:text="@string/category_description"
-            style="@style/CategoryStyle" />
-
-    <!-- Description field -->
-        <EditText
-            android:id="@+id/edit_description"
-            style="@style/EditorFieldStyle"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:inputType="textCapWords"
-            android:hint="@string/hint_description"/>
-</LinearLayout>
-
-</LinearLayout>
+</ScrollView>

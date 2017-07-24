@@ -6,11 +6,11 @@
     android:background="@color/background">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/image_on_list"
         android:layout_width="@dimen/list_item_height"
         android:layout_height="@dimen/list_item_height"
         android:scaleType="centerCrop"
-        android:src="@drawable/Deposit"
+        android:src="@drawable/deposit"
         android:padding="@dimen/padding"/>
 
     <LinearLayout
@@ -27,6 +27,7 @@
             android:orientation="vertical">
 
         <TextView
+            android:id="@+id/name_on_list"
             style="@style/name"
             tools:text="@string/tool_name"
             android:layout_marginBottom="@dimen/layout_margin"/>
@@ -40,6 +41,7 @@
                 android:text="@string/price" />
 
             <TextView
+                android:id="@+id/price_on_list"
                 style="@style/price"
                 tools:text="@string/tool_price" />
 
@@ -67,6 +69,7 @@
                 android:text="@string/availability" />
 
             <TextView
+                android:id="@+id/quantity_on_list"
                 style="@style/quantity"
                 tools:text="@string/tool_quantity" />
         </LinearLayout>

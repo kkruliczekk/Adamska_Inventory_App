@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/image_size"
-            android:src="@drawable/Deposit"
+            android:src="@drawable/deposit"
             android:scaleType="centerCrop"
             />
 

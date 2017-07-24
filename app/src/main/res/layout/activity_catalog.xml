@@ -24,7 +24,7 @@
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/Deposit"/>
+            android:src="@drawable/deposit"/>
 
         <TextView
             android:id="@+id/empty_title_text"
