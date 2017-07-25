@@ -16,6 +16,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -338,8 +339,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 if (saveProduct()) {
                     //Leave the menu
                     finish();
-                    return true;
-                }
+                } return true;
             case android.R.id.home:
                 // If the product has not changed, continue with navigating up to parent activity
                 // which is the {@link CatalogActivity}.
@@ -416,10 +416,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        // Bail early if the cursor is null or there is less than 1 row in the cursor
-        if (cursor == null || cursor.getCount() < 1) {
-            return;
-        }
+
         // Proceed with moving to the first row of the cursor and reading data from it
         // (This should be the only row in the cursor)
         if (cursor.moveToFirst()) {
@@ -431,7 +428,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int descriptionColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_DESCRIPTION);
             int producerColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCER);
 
-            // Extract out the value from the Cursor for the given column index
+            // ExtracmCurrentProductUrit out the value from the Cursor for the given column index
             String productName = cursor.getString(nameColumnIndex);
             int productPrice = cursor.getInt(priceColumnIndex);
             int productQuantity = cursor.getInt(availabilityColumnIndex);

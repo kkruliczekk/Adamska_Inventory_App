@@ -93,8 +93,7 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
     private void editProduct() {
         //Go to editor activity
         Intent intent = new Intent(ProductActivity.this, EditorActivity.class);
-        Uri currentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
-        intent.setData(currentProductUri);
+        intent.setData(mCurrentProductUri);
         startActivity(intent);
     }
 
