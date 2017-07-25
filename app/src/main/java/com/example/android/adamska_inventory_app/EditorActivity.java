@@ -28,13 +28,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.android.adamska_inventory_app.data.ContractClass;
-
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static com.example.android.adamska_inventory_app.data.ContractClass.InventoryEntry;
 import static com.example.android.adamska_inventory_app.data.ContractClass.InventoryEntry.PRODUCER_NOTHING;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -165,15 +164,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.producer_planszoweczka))) {
-                        mManufacturer = ContractClass.InventoryEntry.PRODUCER_PLANSZOWECZKA;
+                        mManufacturer = InventoryEntry.PRODUCER_PLANSZOWECZKA;
                     } else if (selection.equals(getString(R.string.producer_marajo))) {
-                        mManufacturer = ContractClass.InventoryEntry.PRODUCER_MARAJO;
+                        mManufacturer = InventoryEntry.PRODUCER_MARAJO;
                     } else if (selection.equals(getString(R.string.producer_rebel))) {
-                        mManufacturer = ContractClass.InventoryEntry.PRODUCER_REBEL;
+                        mManufacturer = InventoryEntry.PRODUCER_REBEL;
                     } else if (selection.equals(getString(R.string.producer_granna))) {
-                        mManufacturer = ContractClass.InventoryEntry.PRODUCER_GRANNA;
+                        mManufacturer = InventoryEntry.PRODUCER_GRANNA;
                     } else if (selection.equals(getString(R.string.producer_galakta))) {
-                        mManufacturer = ContractClass.InventoryEntry.PRODUCER_GALAKTA;
+                        mManufacturer = InventoryEntry.PRODUCER_GALAKTA;
                     } else {
                         mManufacturer = PRODUCER_NOTHING;
                     }
@@ -199,7 +198,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // and check if all the fields in the editor are blank
         if (mCurrentProductUri == null &&
                 TextUtils.isEmpty(nameString) && bitmap == null && TextUtils.isEmpty(quantityString) &&
-                TextUtils.isEmpty(priceString) && mManufacturer == ContractClass.InventoryEntry.PRODUCER_NOTHING &&
+                TextUtils.isEmpty(priceString) && mManufacturer == InventoryEntry.PRODUCER_NOTHING &&
                 TextUtils.isEmpty(descriptionString)) {
             return true;
         }
@@ -218,8 +217,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Create a ContentValues object
             ContentValues values = new ContentValues();
             //attributes from the editor are the values
-            values.put(ContractClass.InventoryEntry.COLUMN_NAME, nameString);
-            values.put(ContractClass.InventoryEntry.COLUMN_PRODUCER, mManufacturer);
+            values.put(InventoryEntry.COLUMN_NAME, nameString);
+            values.put(InventoryEntry.COLUMN_PRODUCER, mManufacturer);
 
             // If the quantity is not provided by the user, don't try to parse the string into an
             // integer value. Use 0 by default.
@@ -227,11 +226,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             if (!TextUtils.isEmpty(quantityString)) {
                 quantity = Integer.parseInt(quantityString);
             }
-            values.put(ContractClass.InventoryEntry.COLUMN_QUANTITY, quantity);
+            values.put(InventoryEntry.COLUMN_QUANTITY, quantity);
 
             //Convert price to int
             int price = Integer.parseInt(priceString);
-            values.put(ContractClass.InventoryEntry.COLUMN_PRICE, price);
+            values.put(InventoryEntry.COLUMN_PRICE, price);
 
             //If no image was chosen, set the default one
             if (bitmap == null) {
@@ -242,21 +241,24 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
             byte[] imageToDatabase = outputStream.toByteArray();
-            values.put(ContractClass.InventoryEntry.COLUMN_IMAGE, imageToDatabase);
+            values.put(InventoryEntry.COLUMN_IMAGE, imageToDatabase);
 
             //If no description was added, set the default text
-            String description = getString(R.string.coming_soon);
+            String description;
             if (descriptionString != null) {
                 description = descriptionString;
+                //TODO nie działa
+            } else {
+                description = getString(R.string.comming_soon);
             }
-            values.put(ContractClass.InventoryEntry.COLUMN_DESCRIPTION, description);
+            values.put(InventoryEntry.COLUMN_DESCRIPTION, description);
 
 
             // Determine if this is a new or existing product by checking if mCurrentProduct Uri is null or not
             if (mCurrentProductUri == null) {
                 // This is a NEW product, so insert a new data into the provider,
                 //, returning the new content URI
-                Uri newUri = getContentResolver().insert(ContractClass.InventoryEntry.CONTENT_URI, values);
+                Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
 
                 // Show a toast message depending on whether or not the insertion was successful
                 if (newUri == null) {
@@ -318,56 +320,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         alertDialog.show();
     }
 
-    /**
-     * Perform the deletion of the current product in the database.
-     */
-    private void deleteProduct() {
-
-        // Call the ContentResolver to delete the pet at the given content URI.
-        // Pass in null for the selection and selection args because the mCurrentProductUri
-        // content URI already identifies the pet that we want.
-        int rowsDeleted = getContentResolver().delete(mCurrentProductUri, null, null);
-
-        // Show a toast message depending on whether or not the delete was successful.
-        if (rowsDeleted == 0) {
-            // If no rows were deleted, then there was an error with the delete.
-            Toast.makeText(this, getString(R.string.editor_delete_failed),
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the delete was successful and we can display a toast.
-            Toast.makeText(this, getString(R.string.editor_delete_successful),
-                    Toast.LENGTH_SHORT).show();
-        }
-
-        // Close the activity
-        finish();
-    }
-
-    private void showDeleteOneConfirmationDialog() {
-        // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the positive and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.delete_one_dialog_msg);
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the product.
-                deleteProduct();
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
-            }
-        });
-
-        // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
@@ -376,16 +328,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         return true;
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        // If this is a new product, hide the "Delete" menu item.
-        if (mCurrentProductUri == null) {
-            MenuItem menuItem = menu.findItem(R.id.action_delete_one);
-            menuItem.setVisible(false);
-        }
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -398,10 +340,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     finish();
                     return true;
                 }
-            case R.id.action_delete_one:
-                // Pop up confirmation dialog for deletion
-                showDeleteOneConfirmationDialog();
-                return true;
             case android.R.id.home:
                 // If the product has not changed, continue with navigating up to parent activity
                 // which is the {@link CatalogActivity}.
@@ -458,18 +396,18 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Since the editor shows all product attributes, define a projection that contains
         // all columns from the table
         String[] projection = {
-                ContractClass.InventoryEntry._ID,
-                ContractClass.InventoryEntry.COLUMN_NAME,
-                ContractClass.InventoryEntry.COLUMN_PRICE,
-                ContractClass.InventoryEntry.COLUMN_QUANTITY,
-                ContractClass.InventoryEntry.COLUMN_IMAGE,
-                ContractClass.InventoryEntry.COLUMN_DESCRIPTION,
-                ContractClass.InventoryEntry.COLUMN_PRODUCER
+                InventoryEntry._ID,
+                InventoryEntry.COLUMN_NAME,
+                InventoryEntry.COLUMN_PRICE,
+                InventoryEntry.COLUMN_QUANTITY,
+                InventoryEntry.COLUMN_IMAGE,
+                InventoryEntry.COLUMN_DESCRIPTION,
+                InventoryEntry.COLUMN_PRODUCER
         };
 
         //Execute the ContentProvider's query method on a background tread
         return new CursorLoader(this,
-                ContractClass.InventoryEntry.CONTENT_URI,
+                mCurrentProductUri,
                 projection,
                 null,
                 null,
@@ -485,13 +423,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Proceed with moving to the first row of the cursor and reading data from it
         // (This should be the only row in the cursor)
         if (cursor.moveToFirst()) {
-            // Find the columns of pet attributes that we're interested in
-            int nameColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_PRICE);
-            int availabilityColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_QUANTITY);
-            int imageColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_IMAGE);
-            int descriptionColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_DESCRIPTION);
-            int producerColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_PRODUCER);
+            // Find the columns of product attributes that we're interested in
+            int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRICE);
+            int availabilityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_QUANTITY);
+            int imageColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_IMAGE);
+            int descriptionColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_DESCRIPTION);
+            int producerColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCER);
 
             // Extract out the value from the Cursor for the given column index
             String productName = cursor.getString(nameColumnIndex);
@@ -516,19 +454,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // 3 is Rebel, 4 is Granna, 5 is Galakta).
             // Then call setSelection() so that option is displayed on screen as the current selection.
             switch (productManufacturer) {
-                case ContractClass.InventoryEntry.PRODUCER_PLANSZOWECZKA:
+                case InventoryEntry.PRODUCER_PLANSZOWECZKA:
                     mManufacturerSpinner.setSelection(1);
                     break;
-                case ContractClass.InventoryEntry.PRODUCER_MARAJO:
+                case InventoryEntry.PRODUCER_MARAJO:
                     mManufacturerSpinner.setSelection(2);
                     break;
-                case ContractClass.InventoryEntry.PRODUCER_REBEL:
+                case InventoryEntry.PRODUCER_REBEL:
                     mManufacturerSpinner.setSelection(3);
                     break;
-                case ContractClass.InventoryEntry.PRODUCER_GRANNA:
+                case InventoryEntry.PRODUCER_GRANNA:
                     mManufacturerSpinner.setSelection(4);
                     break;
-                case ContractClass.InventoryEntry.PRODUCER_GALAKTA:
+                case InventoryEntry.PRODUCER_GALAKTA:
                     mManufacturerSpinner.setSelection(5);
                     break;
                 default:

@@ -1,5 +1,6 @@
 package com.example.android.adamska_inventory_app;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.CursorLoader;
@@ -58,9 +59,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
-                Uri currentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
-                intent.setData(currentProductUri);
+             Intent intent = new Intent(CatalogActivity.this, ProductActivity.class);
+               Uri currentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
+              intent.setData(currentProductUri);
                 startActivity(intent);
             }
         });
