@@ -15,9 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.android.adamska_inventory_app.data.ContractClass;
+import com.example.android.adamska_inventory_app.data.ContractClass.InventoryEntry;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -29,6 +30,16 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
+
+        // Setup button to open EditorActivity
+        Button insertNew = (Button) findViewById(R.id.button_insert_new_product);
+        insertNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Find the ListView which will be populated with the data from database
         ListView inventoryListView = (ListView) findViewById(R.id.list);
@@ -42,14 +53,13 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         mCursorAdapter = new CursorAdapter(this, null);
         inventoryListView.setAdapter(mCursorAdapter);
 
-        //TODO otwórz product detail
         //When the user click on the product item go to product details
         inventoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(CatalogActivity.this, ProductActivity.class);
-                Uri currentProductUri = ContentUris.withAppendedId(ContractClass.InventoryEntry.CONTENT_URI, id);
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                Uri currentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
                 intent.setData(currentProductUri);
                 startActivity(intent);
             }
@@ -61,7 +71,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private void deleteAllProducts() {
         //delete all data from database
-        getContentResolver().delete(ContractClass.InventoryEntry.CONTENT_URI, null, null);
+        getContentResolver().delete(InventoryEntry.CONTENT_URI, null, null);
     }
 
     private void showDeleteConfirmationDialog() {
@@ -125,14 +135,14 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         String[] projection = {
-                ContractClass.InventoryEntry._ID,
-                ContractClass.InventoryEntry.COLUMN_NAME,
-                ContractClass.InventoryEntry.COLUMN_PRICE,
-                ContractClass.InventoryEntry.COLUMN_QUANTITY,
-                ContractClass.InventoryEntry.COLUMN_IMAGE,
+                InventoryEntry._ID,
+                InventoryEntry.COLUMN_NAME,
+                InventoryEntry.COLUMN_PRICE,
+                InventoryEntry.COLUMN_QUANTITY,
+                InventoryEntry.COLUMN_IMAGE,
         };
         return new CursorLoader(this,
-                ContractClass.InventoryEntry.CONTENT_URI,
+                InventoryEntry.CONTENT_URI,
                 projection,
                 null,
                 null,

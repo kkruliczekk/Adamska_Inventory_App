@@ -1,16 +1,20 @@
 package com.example.android.adamska_inventory_app;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.adamska_inventory_app.data.ContractClass;
+import com.example.android.adamska_inventory_app.data.ContractClass.InventoryEntry;
 
 /**
  * Created by kasia on 22.07.17.
@@ -51,14 +55,14 @@ public class CursorAdapter extends android.widget.CursorAdapter {
      *                correct row.
      */
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, Cursor cursor) {
 
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
-        int nameColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_NAME);
-        int priceColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_PRICE);
-        int availabilityColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_QUANTITY);
-        int imageColumnIndex = cursor.getColumnIndex(ContractClass.InventoryEntry.COLUMN_IMAGE);
+        int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_NAME);
+        int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRICE);
+        int availabilityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_QUANTITY);
+        int imageColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_IMAGE);
 
         String productName = cursor.getString(nameColumnIndex);
         int productPrice = cursor.getInt(priceColumnIndex);
@@ -72,6 +76,25 @@ public class CursorAdapter extends android.widget.CursorAdapter {
         viewHolder.priceView.setText("" + productPrice);
         viewHolder.availabilityView.setText("" + productQuantity);
         viewHolder.imageView.setImageBitmap(imageBitmap);
+
+        Button saleButton = (Button) view.findViewById(R.id.button_sale);
+
+        final int rowId = cursor.getInt(cursor.getColumnIndex(InventoryEntry._ID));
+        final int tempQuality = productQuantity;
+        saleButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                int quantity = tempQuality;
+                if (quantity > 0) {
+                    quantity = quantity - 1;
+                }
+                ContentValues values = new ContentValues();
+                Uri updateUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, rowId);
+                values.put(InventoryEntry.COLUMN_QUANTITY, quantity);
+                context.getContentResolver().update(updateUri, values, null, null);
+            }
+        });
     }
 
     //Cache of the children views for the list item
@@ -80,12 +103,15 @@ public class CursorAdapter extends android.widget.CursorAdapter {
         public final TextView priceView;
         public final TextView availabilityView;
         public final ImageView imageView;
+        public final Button saleButton;
 
         public ViewHolder (View view) {
             nameView = (TextView) view.findViewById(R.id.name_on_list);
             priceView = (TextView) view.findViewById(R.id.price_on_list);
             availabilityView = (TextView) view.findViewById(R.id.quantity_on_list);
             imageView = (ImageView) view.findViewById(R.id.image_on_list);
+            saleButton = (Button) view.findViewById(R.id.button_sale);
+
         }
     }
 }

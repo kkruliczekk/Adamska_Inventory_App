@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".CatalogActivity">
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
 
     <!-- Empty view for the list -->
     <RelativeLayout
@@ -24,7 +18,7 @@
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/deposit"/>
+            android:src="@drawable/deposit" />
 
         <TextView
             android:id="@+id/empty_title_text"
@@ -35,7 +29,25 @@
             android:fontFamily="sans-serif-medium"
             android:paddingTop="@dimen/layout_margin_external"
             android:text="@string/empty_view_title_text"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:textAppearance="?android:textAppearanceMedium" />
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_insert_new_product"
+            style="@style/button"
+            android:layout_margin="@dimen/layout_margin_external"
+            android:text="@string/insert_product" />
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 </RelativeLayout>

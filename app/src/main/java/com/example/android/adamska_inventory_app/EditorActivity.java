@@ -131,6 +131,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 InputStream stream = getContentResolver().openInputStream(data.getData());
                 //Create bitmap from stream
                 bitmap = BitmapFactory.decodeStream(stream);
+                //Scale image
+                bitmap = Bitmap.createScaledBitmap(bitmap, 400, 400, true);
                 stream.close();
                 mImageView.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
@@ -238,7 +240,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
             //Convert image to the ByteArray, so that it could be put into database
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 0, outputStream);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
             byte[] imageToDatabase = outputStream.toByteArray();
             values.put(ContractClass.InventoryEntry.COLUMN_IMAGE, imageToDatabase);
 
@@ -316,11 +318,72 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         alertDialog.show();
     }
 
+    /**
+     * Perform the deletion of the current product in the database.
+     */
+    private void deleteProduct() {
+
+        // Call the ContentResolver to delete the pet at the given content URI.
+        // Pass in null for the selection and selection args because the mCurrentProductUri
+        // content URI already identifies the pet that we want.
+        int rowsDeleted = getContentResolver().delete(mCurrentProductUri, null, null);
+
+        // Show a toast message depending on whether or not the delete was successful.
+        if (rowsDeleted == 0) {
+            // If no rows were deleted, then there was an error with the delete.
+            Toast.makeText(this, getString(R.string.editor_delete_failed),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the delete was successful and we can display a toast.
+            Toast.makeText(this, getString(R.string.editor_delete_successful),
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        // Close the activity
+        finish();
+    }
+
+    private void showDeleteOneConfirmationDialog() {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_one_dialog_msg);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the product.
+                deleteProduct();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so dismiss the dialog
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_editor, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        // If this is a new product, hide the "Delete" menu item.
+        if (mCurrentProductUri == null) {
+            MenuItem menuItem = menu.findItem(R.id.action_delete_one);
+            menuItem.setVisible(false);
+        }
         return true;
     }
 
@@ -333,7 +396,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 if (saveProduct()) {
                     //Leave the menu
                     finish();
+                    return true;
                 }
+            case R.id.action_delete_one:
+                // Pop up confirmation dialog for deletion
+                showDeleteOneConfirmationDialog();
                 return true;
             case android.R.id.home:
                 // If the product has not changed, continue with navigating up to parent activity
@@ -440,7 +507,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mEditQuantity.setText(Integer.toString(productQuantity));
             mEditDescription.setText(productDescription);
 
-            //TODO sprawdź czy to dobrze
             //Convert the image from database to bitmap
             Bitmap imageBitmap = BitmapFactory.decodeByteArray(productImage, 0, productImage.length);
             mImageView.setImageBitmap(imageBitmap);

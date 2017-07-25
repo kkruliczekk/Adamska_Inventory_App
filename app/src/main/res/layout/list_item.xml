@@ -77,7 +77,8 @@
             <Button
                 android:id="@+id/button_sale"
                 style="@style/button"
-                android:text="@string/sale_button" />
+                android:text="@string/sale_button"
+                android:focusable="false"/>
 
         </LinearLayout>
     </LinearLayout>
