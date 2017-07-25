@@ -2,6 +2,7 @@ package com.example.android.adamska_inventory_app;
 
 
 import android.app.AlertDialog;
+import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -9,9 +10,8 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.app.LoaderManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,10 +25,9 @@ import com.example.android.adamska_inventory_app.data.ContractClass.InventoryEnt
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String LOG_TAG = CatalogActivity.class.getSimpleName();
-
     private static final int INVENTORY_LOADER = 0;
-
     CursorAdapter mCursorAdapter;
+    private ListView mInventoryListView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,25 +45,24 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         });
 
         // Find the ListView which will be populated with the data from database
-        ListView inventoryListView = (ListView) findViewById(R.id.list);
+        mInventoryListView = (ListView) findViewById(R.id.list);
 
-        //Find and set empty view on the ListView
         //It only shows when there are no data od the database
         View emptyView = findViewById(R.id.empty_view);
-        inventoryListView.setEmptyView(emptyView);
+        mInventoryListView.setEmptyView(emptyView);
 
         //If there are data in the database - display them as list using the CursorAdapter
         mCursorAdapter = new CursorAdapter(this, null);
-        inventoryListView.setAdapter(mCursorAdapter);
+        mInventoryListView.setAdapter(mCursorAdapter);
 
         //When the user click on the product item go to product details
-        inventoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mInventoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-             Intent intent = new Intent(CatalogActivity.this, ProductActivity.class);
-               Uri currentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
-              intent.setData(currentProductUri);
+                Intent intent = new Intent(CatalogActivity.this, ProductActivity.class);
+                Uri currentProductUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
+                intent.setData(currentProductUri);
                 startActivity(intent);
             }
         });
@@ -72,17 +70,34 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         getLoaderManager().initLoader(INVENTORY_LOADER, null, this);
     }
 
-
     private void deleteAllProducts() {
         //delete all data from database
         getContentResolver().delete(InventoryEntry.CONTENT_URI, null, null);
     }
 
     private void showDeleteConfirmationDialog() {
+        //Count the amount of the products of the list
+        int productCount = 0;
+        Cursor cursor = getContentResolver().query(InventoryEntry.CONTENT_URI,
+                new String[]{"count(*)"}, null, null, null);
+        if (cursor != null && cursor.getCount() != 0) {
+            cursor.moveToFirst();
+            productCount = cursor.getInt(0);
+        }
+        cursor.close();
+
+        //if list is empty, set the message
+        if (productCount == 0) {
+            Toast.makeText(this, getText(R.string.no_items), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the positivi and negative buttons on the dialog.
+        // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.delete_all_dialog_msg);
+        String message = getString(R.string.message_amount_products) + "  " + productCount +
+                "\n" + getString(R.string.delete_all_dialog_msg);
+        builder.setMessage(message);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Delete" button, so delete the pet.
@@ -128,13 +143,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 return true;
             // Respond to a click on the "Delete all products" menu option
             case R.id.action_delete_all_entries:
-                //TODO if is empty do nothing
-                if (InventoryEntry.CONTENT_URI==null) {
-                    Toast.makeText(this, "dupa", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else {
-                    showDeleteConfirmationDialog();
-                    return true;}
+                showDeleteConfirmationDialog();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -159,6 +169,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
         mCursorAdapter.swapCursor(data);
     }
 

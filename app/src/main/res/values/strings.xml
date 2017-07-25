@@ -13,7 +13,6 @@
     <string name="sale_button">Sale</string>
 
 
-    <string name="edit_name">Product name:</string>
     <string name="category_manufacturer">Manufacturer:</string>
     <string name="category_availability">Availability:</string>
     <string name="hint_price">Price</string>
@@ -80,9 +79,13 @@
     <string name="address_rebel">rebel@rebel.pl</string>
     <string name="address_granna">granna@granna.pl</string>
     <string name="address_galakta">galakta@galakta.pl</string>
+
     <string name="warning_sending_email">There is no email client installed.</string>
-    <string name="ordering_message">Good morning, we want to order:</string>
+    <string name="ordering_message">Good morning, we want to order: </string>
     <string name="warning_negative_number">Quantity can not be lower than 0.</string>
     <string name="empty_view_text">Please insert the new product using the button or menu.</string>
+
+    <string name="message_amount_products">Amount of products on the list:</string>
+    <string name="no_items">No items on the list.</string>
 
 </resources>

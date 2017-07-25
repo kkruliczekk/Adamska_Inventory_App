@@ -9,9 +9,9 @@
         android:id="@+id/image_on_list"
         android:layout_width="@dimen/list_item_height"
         android:layout_height="@dimen/list_item_height"
+        android:padding="@dimen/padding"
         android:scaleType="centerCrop"
-        android:src="@drawable/deposit"
-        android:padding="@dimen/padding"/>
+        android:src="@drawable/deposit" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -22,35 +22,34 @@
 
         <LinearLayout
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/name_on_list"
-            style="@style/name"
-            tools:text="@string/tool_name"
-            android:layout_marginBottom="@dimen/layout_margin"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <TextView
-                style="@style/price"
-                android:text="@string/price" />
+                android:id="@+id/name_on_list"
+                style="@style/name"
+                android:layout_marginBottom="@dimen/layout_margin"
+                tools:text="@string/tool_name" />
 
-            <TextView
-                android:id="@+id/price_on_list"
-                style="@style/price"
-                tools:text="@string/tool_price" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                style="@style/price"
-                android:text="@string/dollar" />
+                <TextView
+                    style="@style/price"
+                    android:text="@string/price" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/price_on_list"
+                    style="@style/price"
+                    tools:text="@string/tool_price" />
 
+                <TextView
+                    style="@style/price"
+                    android:text="@string/dollar" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -58,27 +57,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/layout_margin">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/layout_margin"
+                android:orientation="horizontal">
 
-            <TextView
-                style="@style/quantity"
-                android:text="@string/availability" />
+                <TextView
+                    style="@style/quantity"
+                    android:text="@string/availability" />
 
-            <TextView
-                android:id="@+id/quantity_on_list"
-                style="@style/quantity"
-                tools:text="@string/tool_quantity" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/quantity_on_list"
+                    style="@style/quantity"
+                    tools:text="@string/tool_quantity" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/button_sale"
                 style="@style/button"
-                android:text="@string/sale_button"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:text="@string/sale_button" />
 
         </LinearLayout>
     </LinearLayout>

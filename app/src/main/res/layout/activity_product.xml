@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -151,18 +150,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/order_button"
-        style="@style/button"
-        android:padding="@dimen/layout_margin_external"
-        android:text="@string/order" />
+        <Button
+            android:id="@+id/order_button"
+            style="@style/button"
+            android:padding="@dimen/layout_margin_external"
+            android:text="@string/order" />
 
-    <Button
-        android:id="@+id/overview_button_delete"
-        style="@style/button"
-        android:layout_gravity="right"
-        android:padding="@dimen/layout_margin_external"
-        android:text="@string/delete" />
+        <Button
+            android:id="@+id/overview_button_delete"
+            style="@style/button"
+            android:layout_gravity="right"
+            android:padding="@dimen/layout_margin_external"
+            android:text="@string/delete" />
 
-</LinearLayout>
+    </LinearLayout>
 </LinearLayout>

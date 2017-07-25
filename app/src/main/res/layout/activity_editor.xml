@@ -14,7 +14,6 @@
 
         <!-- Product name-->
         <LinearLayout
-            android:id="@+id/container_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -37,7 +36,6 @@
 
         <!-- Product image-->
         <LinearLayout
-            android:id="@+id/container_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -69,20 +67,17 @@
                 android:layout_height="@dimen/image_size"
                 android:layout_weight="2" />
 
-
         </LinearLayout>
 
 
         <!-- Producer category -->
         <LinearLayout
-            android:id="@+id/container_producer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <!-- Label -->
             <TextView
-                android:id="@+id/textView"
                 style="@style/CategoryStyle"
                 android:text="@string/category_manufacturer" />
 
@@ -105,7 +100,6 @@
 
         <!-- Quantity category -->
         <LinearLayout
-            android:id="@+id/container_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -128,7 +122,6 @@
 
         <!-- Price category -->
         <LinearLayout
-            android:id="@+id/container_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -153,7 +146,6 @@
 
                 <!-- Units for price ($) -->
                 <TextView
-                    android:id="@+id/label_dollar"
                     style="@style/unit_price"
                     android:paddingTop="10dp"
                     android:text="@string/dollar" />
@@ -163,7 +155,6 @@
 
         <!-- Description category -->
         <LinearLayout
-            android:id="@+id/container_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -182,7 +173,5 @@
                 android:hint="@string/hint_description"
                 android:inputType="textCapWords" />
         </LinearLayout>
-
     </LinearLayout>
-
 </ScrollView>

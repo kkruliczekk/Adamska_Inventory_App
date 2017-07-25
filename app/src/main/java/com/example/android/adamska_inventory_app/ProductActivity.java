@@ -12,14 +12,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -99,11 +98,11 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
             public void onClick(View view) {
                 String address = mEMail.getText().toString();
                 String name = mName.getText().toString();
-                String massage = getString(R.string.ordering_message) +"\n" + name;
+                String massage = getString(R.string.ordering_message) + "\n" + name;
                 Intent orderIntent = new Intent(Intent.ACTION_SENDTO);
-                orderIntent.setData(Uri.parse("mailto:"+ address)); // only email apps should handle this
-                orderIntent.putExtra(Intent.EXTRA_SUBJECT, "want to order: " + name );
-                orderIntent.putExtra(Intent.EXTRA_TEXT, massage );
+                orderIntent.setData(Uri.parse("mailto:" + address)); // only email apps should handle this
+                orderIntent.putExtra(Intent.EXTRA_SUBJECT, "want to order: " + name);
+                orderIntent.putExtra(Intent.EXTRA_TEXT, massage);
                 try {
                     startActivity(orderIntent);
                     finish();
@@ -270,7 +269,6 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
             //map the constant value from the database
             // into one of the dropdown options (0 is Nothing, 1 is Planszoweczka, 2 is Marajo,
             // 3 is Rebel, 4 is Granna, 5 is Galakta).
-//TODO użyć danych z bazy - włożyć maile do bazy?
             String manufacturer;
             String eMail;
             if (productManufacturer == InventoryEntry.PRODUCER_PLANSZOWECZKA) {

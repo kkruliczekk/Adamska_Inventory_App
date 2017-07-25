@@ -9,7 +9,6 @@
     <dimen name="padding">3dp</dimen>
     <dimen name="layout_margin_external">10dp</dimen>
     <dimen name="button_text">15sp</dimen>
-    <dimen name="title_size">17sp</dimen>
 
     <dimen name="empty_image">300dp</dimen>
 

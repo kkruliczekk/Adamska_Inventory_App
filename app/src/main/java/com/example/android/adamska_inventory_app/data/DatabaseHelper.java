@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-
 /**
  * Created by kasia on 22.07.17.
  */
@@ -17,7 +16,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Database version
     private static final int DATABASE_VERSION = 1;
-
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
