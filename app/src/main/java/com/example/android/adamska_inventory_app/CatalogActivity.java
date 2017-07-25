@@ -1,6 +1,6 @@
 package com.example.android.adamska_inventory_app;
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.CursorLoader;
@@ -18,10 +18,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.adamska_inventory_app.data.ContractClass.InventoryEntry;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    public static final String LOG_TAG = CatalogActivity.class.getSimpleName();
 
     private static final int INVENTORY_LOADER = 0;
 
@@ -126,8 +129,12 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             // Respond to a click on the "Delete all products" menu option
             case R.id.action_delete_all_entries:
                 //TODO if is empty do nothing
-                showDeleteConfirmationDialog();
-                return true;
+                if (InventoryEntry.CONTENT_URI==null) {
+                    Toast.makeText(this, "dupa", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else {
+                    showDeleteConfirmationDialog();
+                    return true;}
         }
         return super.onOptionsItemSelected(item);
     }

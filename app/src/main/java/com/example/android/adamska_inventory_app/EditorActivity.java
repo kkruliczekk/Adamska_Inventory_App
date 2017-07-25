@@ -16,7 +16,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -38,6 +37,8 @@ import static com.example.android.adamska_inventory_app.data.ContractClass.Inven
 import static com.example.android.adamska_inventory_app.data.ContractClass.InventoryEntry.PRODUCER_NOTHING;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    public static final String LOG_TAG = EditorActivity.class.getSimpleName();
 
     private static final int EXISTING_INVENTORY_LOADER = 0;
 
@@ -246,9 +247,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             //If no description was added, set the default text
             String description;
-            if (descriptionString != null) {
+            if (!descriptionString.isEmpty()) {
                 description = descriptionString;
-                //TODO nie działa
             } else {
                 description = getString(R.string.comming_soon);
             }
@@ -329,7 +329,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
@@ -363,7 +362,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 // Show a dialog that notifies the user they have unsaved changes
                 showUnsavedChangesDialog(discardButtonClickListener);
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
     }

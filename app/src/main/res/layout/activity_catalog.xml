@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/empty_shelter_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/empty_image"
+            android:layout_height="@dimen/empty_image"
             android:adjustViewBounds="true"
             android:layout_margin="@dimen/layout_margin_external"
             android:layout_centerHorizontal="true"
@@ -32,6 +32,17 @@
             android:paddingTop="@dimen/layout_margin_external"
             android:text="@string/empty_view_title_text"
             android:textAppearance="?android:textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/empty_title_text"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-medium"
+            android:paddingTop="@dimen/layout_margin_external"
+            android:text="@string/empty_view_text"
+            android:textAppearance="?android:textAppearanceSmall" />
 
     </RelativeLayout>
 

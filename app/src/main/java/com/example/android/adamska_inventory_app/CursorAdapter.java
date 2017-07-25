@@ -22,6 +22,8 @@ import com.example.android.adamska_inventory_app.data.ContractClass.InventoryEnt
 
 public class CursorAdapter extends android.widget.CursorAdapter {
 
+    public static final String LOG_TAG = CursorAdapter.class.getSimpleName();
+
      /**
      * Constructs a new {@link CursorAdapter}.
      *

@@ -1,9 +1,9 @@
 package com.example.android.adamska_inventory_app;
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
 import android.app.LoaderManager;
-import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,13 +26,9 @@ import android.widget.Toast;
 
 import com.example.android.adamska_inventory_app.data.ContractClass.InventoryEntry;
 
-import org.w3c.dom.Text;
-
-import static android.R.attr.id;
-import static com.example.android.adamska_inventory_app.R.style.quantity;
-import static com.example.android.adamska_inventory_app.data.InventoryProvider.LOG_TAG;
-
 public class ProductActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    public static final String LOG_TAG = ProductActivity.class.getSimpleName();
 
     private static final int CURRENT_INVENTORY_LOADER = 0;
     private TextView mName;
@@ -49,30 +45,6 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-//        TODO // Setup button to order
-//        Button order = (Button) findViewById(R.id.order_button);
-//        order.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String address = ;
-//                String name = ;
-//                String quantity =;
-//                String massage = getString(R.string.ordering_message) + name + getString(R.string.ordering_quantity) + quantity;
-//                Intent orderIntent = new Intent(Intent.ACTION_SENDTO);
-//                orderIntent.setData(Uri.parse("mailto:"+ address)); // only email apps should handle this
-//                orderIntent.putExtra(Intent.EXTRA_SUBJECT, "want to order: " + name );
-//                orderIntent.putExtra(Intent.EXTRA_TEXT, massage );
-//                try {
-//                    startActivity(orderIntent);
-//                    finish();
-//                    Log.i(LOG_TAG, "Finished sending email...");
-//                } catch (android.content.ActivityNotFoundException ex) {
-//                    Toast.makeText(ProductActivity.this, getString(R.string.warning_sending_email), Toast.LENGTH_SHORT).show();
-//
-//                }
-//            }
-//        });
-
         // Find the view which will be populated with the data from database
         mName = (TextView) findViewById(R.id.overview_name);
         mPrice = (TextView) findViewById(R.id.overview_price);
@@ -88,6 +60,68 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
         //Prepare the loader
         getLoaderManager().initLoader(CURRENT_INVENTORY_LOADER, null, this);
 
+        Button minus = (Button) findViewById(R.id.button_minus);
+        minus.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                int quantity = Integer.parseInt(mQuantity.getText().toString());
+                if (quantity > 0) {
+                    quantity = quantity - 1;
+                    mQuantity.setText("" + quantity);
+                    ContentValues values = new ContentValues();
+                    values.put(InventoryEntry.COLUMN_QUANTITY, quantity);
+                    int rowsUpdated = getContentResolver().update(InventoryEntry.CONTENT_URI, values, null, null);
+                } else {
+                    Toast.makeText(ProductActivity.this, getString(R.string.warning_negative_number), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        Button plus = (Button) findViewById(R.id.button_plus);
+        plus.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                int quantity = Integer.parseInt(mQuantity.getText().toString());
+                quantity = quantity + 1;
+                mQuantity.setText("" + quantity);
+                ContentValues values = new ContentValues();
+                values.put(InventoryEntry.COLUMN_QUANTITY, quantity);
+                int rowsUpdated = getContentResolver().update(InventoryEntry.CONTENT_URI, values, null, null);
+            }
+        });
+
+        // Setup button to order
+        Button order = (Button) findViewById(R.id.order_button);
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String address = mEMail.getText().toString();
+                String name = mName.getText().toString();
+                String massage = getString(R.string.ordering_message) +"\n" + name;
+                Intent orderIntent = new Intent(Intent.ACTION_SENDTO);
+                orderIntent.setData(Uri.parse("mailto:"+ address)); // only email apps should handle this
+                orderIntent.putExtra(Intent.EXTRA_SUBJECT, "want to order: " + name );
+                orderIntent.putExtra(Intent.EXTRA_TEXT, massage );
+                try {
+                    startActivity(orderIntent);
+                    finish();
+                    Log.i(LOG_TAG, "Finished sending email...");
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(ProductActivity.this, getString(R.string.warning_sending_email), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        Button delete = (Button) findViewById(R.id.overview_button_delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Pop up confirmation dialog for deletion
+                showDeleteConfirmationDialog();
+            }
+        });
     }
 
     private void editProduct() {

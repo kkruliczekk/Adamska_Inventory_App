@@ -11,6 +11,8 @@
     <dimen name="button_text">15sp</dimen>
     <dimen name="title_size">17sp</dimen>
 
+    <dimen name="empty_image">300dp</dimen>
+
     <!-- Common margin value used throughout the app -->
     <dimen name="activity_margin">16dp</dimen>
 

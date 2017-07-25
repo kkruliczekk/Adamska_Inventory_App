@@ -67,7 +67,7 @@
     <string name="warning_name">Introduction of product name is obligatory</string>
     <string name="warning_price">Introduction of product price is obligatory. Make sure it is a positive number.</string>
     <string name="category_image">Image</string>
-    <string name="insert_image">Insert</string>
+    <string name="insert_image">Download</string>
 
     <string name="insert_product">Insert new</string>
     <string name="tool_email">email@email.pl</string>
@@ -82,6 +82,7 @@
     <string name="address_galakta">galakta@galakta.pl</string>
     <string name="warning_sending_email">There is no email client installed.</string>
     <string name="ordering_message">Good morning, we want to order:</string>
-    <string name="ordering_quantity">. Quantity</string>
+    <string name="warning_negative_number">Quantity can not be lower than 0.</string>
+    <string name="empty_view_text">Please insert the new product using the button or menu.</string>
 
 </resources>
