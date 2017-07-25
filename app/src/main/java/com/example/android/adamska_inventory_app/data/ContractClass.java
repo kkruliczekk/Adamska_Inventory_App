@@ -42,6 +42,7 @@ public class ContractClass {
         public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_IMAGE = "image";
+        public static final String COLUMN_EMAIL = "email";
 
         //possible values for manufacturer
         public static final int PRODUCER_NOTHING = 0;
@@ -50,6 +51,14 @@ public class ContractClass {
         public static final int PRODUCER_REBEL = 3;
         public static final int PRODUCER_GRANNA = 4;
         public static final int PRODUCER_GALAKTA = 5;
+
+         //possible values for e-mail
+        public static final int EMAIL_NOTHING = 0;
+        public static final int EMAIL_PLANSZOWECZKA = 1;
+        public static final int EMAIL_MARAJO = 2;
+        public static final int EMAIL_REBEL = 3;
+        public static final int EMAIL_GRANNA = 4;
+        public static final int EMAIL_GALAKTA = 5;
 
         /**
          * Returns whether or not the given producer is chosen

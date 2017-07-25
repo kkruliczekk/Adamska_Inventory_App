@@ -220,7 +220,9 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
                 InventoryEntry.COLUMN_QUANTITY,
                 InventoryEntry.COLUMN_IMAGE,
                 InventoryEntry.COLUMN_DESCRIPTION,
-                InventoryEntry.COLUMN_PRODUCER
+                InventoryEntry.COLUMN_PRODUCER,
+                InventoryEntry.COLUMN_EMAIL
+
         };
 
         //Execute the ContentProvider's query method on a background tread
@@ -248,6 +250,7 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
             int imageColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_IMAGE);
             int descriptionColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_DESCRIPTION);
             int producerColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCER);
+            int emailColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_EMAIL);
 
             // Extract out the value from the Cursor for the given column index
             String productName = cursor.getString(nameColumnIndex);
@@ -256,6 +259,7 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
             byte[] productImage = cursor.getBlob(imageColumnIndex);
             String productDescription = cursor.getString(descriptionColumnIndex);
             int productManufacturer = cursor.getInt(producerColumnIndex);
+            int producerEmail = cursor.getInt(emailColumnIndex);
 
             // Update the views on the screen with the values from the database
             mName.setText(productName);
@@ -270,7 +274,6 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
             //map the constant value from the database
             // into one of the dropdown options (0 is Nothing, 1 is Planszoweczka, 2 is Marajo,
             // 3 is Rebel, 4 is Granna, 5 is Galakta).
-//TODO użyć danych z bazy - włożyć maile do bazy?
             String manufacturer;
             String eMail;
             if (productManufacturer == InventoryEntry.PRODUCER_PLANSZOWECZKA) {

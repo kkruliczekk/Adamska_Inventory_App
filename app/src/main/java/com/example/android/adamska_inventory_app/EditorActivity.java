@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static com.example.android.adamska_inventory_app.data.ContractClass.InventoryEntry;
+import static com.example.android.adamska_inventory_app.data.ContractClass.InventoryEntry.EMAIL_NOTHING;
 import static com.example.android.adamska_inventory_app.data.ContractClass.InventoryEntry.PRODUCER_NOTHING;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -56,6 +57,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private Spinner mManufacturerSpinner;
 
     private int mManufacturer = PRODUCER_NOTHING;
+    private int mMail = EMAIL_NOTHING;
 
     private boolean mProductHasChanged = false;
 
@@ -222,6 +224,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             values.put(InventoryEntry.COLUMN_NAME, nameString);
             values.put(InventoryEntry.COLUMN_PRODUCER, mManufacturer);
 
+            //Check which e-mail put to the database - according to the producer
+            if (mManufacturer == InventoryEntry.PRODUCER_PLANSZOWECZKA) {
+                mMail = InventoryEntry.EMAIL_PLANSZOWECZKA;
+            } else if (mManufacturer == InventoryEntry.PRODUCER_MARAJO) {
+                mMail = InventoryEntry.EMAIL_MARAJO;
+            } else if (mManufacturer == InventoryEntry.PRODUCER_REBEL) {
+                mMail = InventoryEntry.EMAIL_REBEL;
+            } else if (mManufacturer == InventoryEntry.PRODUCER_GRANNA) {
+                mMail = InventoryEntry.EMAIL_GRANNA;
+            } else if (mManufacturer == InventoryEntry.PRODUCER_GALAKTA) {
+                mMail = InventoryEntry.EMAIL_GALAKTA;
+            } else {
+                mMail = EMAIL_NOTHING;
+            }
+            values.put(InventoryEntry.COLUMN_EMAIL, mMail);
+
             // If the quantity is not provided by the user, don't try to parse the string into an
             // integer value. Use 0 by default.
             int quantity = 0;
@@ -338,7 +356,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 if (saveProduct()) {
                     //Leave the menu
                     finish();
-                } return true;
+                }
+                return true;
             case android.R.id.home:
                 // If the product has not changed, continue with navigating up to parent activity
                 // which is the {@link CatalogActivity}.
@@ -400,7 +419,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 InventoryEntry.COLUMN_QUANTITY,
                 InventoryEntry.COLUMN_IMAGE,
                 InventoryEntry.COLUMN_DESCRIPTION,
-                InventoryEntry.COLUMN_PRODUCER
+                InventoryEntry.COLUMN_PRODUCER,
+                InventoryEntry.COLUMN_EMAIL
         };
 
         //Execute the ContentProvider's query method on a background tread
@@ -425,6 +445,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int imageColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_IMAGE);
             int descriptionColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_DESCRIPTION);
             int producerColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCER);
+            //email is not displeyed here
 
             // ExtracmCurrentProductUrit out the value from the Cursor for the given column index
             String productName = cursor.getString(nameColumnIndex);

@@ -35,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ContractClass.InventoryEntry.COLUMN_PRODUCER + " INTEGER NOT NULL DEFAULT 0, "
                 + ContractClass.InventoryEntry.COLUMN_PRICE + " INTEGER NOT NULL, "
                 + ContractClass.InventoryEntry.COLUMN_QUANTITY + " INTEGER NOT NULL DEFAULT 0, "
+                + ContractClass.InventoryEntry.COLUMN_EMAIL + " INTEGER NOT NULL DEFAULT 0, "
                 + ContractClass.InventoryEntry.COLUMN_DESCRIPTION + " TEXT);";
 
         //Execute the SQL statement

@@ -113,7 +113,6 @@ public class InventoryProvider extends ContentProvider {
     //Insert a new product into the database. Create a new Uri for the new row
 
     private Uri insertProduct(Uri uri, ContentValues values) {
-        Log.v("Kasia", "vlues: " + values);
         //Name can not be null
         String name = values.getAsString(ContractClass.InventoryEntry.COLUMN_NAME);
         if (name == null) {
@@ -138,6 +137,7 @@ public class InventoryProvider extends ContentProvider {
         }
         //Description can be null so it is no point to write something here
         //Image can be null
+        //Email depends on producer
 
         // Get writeable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
